@@ -122,7 +122,7 @@
       text-transform: uppercase; color: var(--teal);
       display: flex; align-items: center; gap: 12px;
       margin-bottom: 24px;
-      opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+      animation: fadeUp 0.8s 0.1s both;
     }
     .hero-eyebrow::before {
       content: '';
@@ -136,7 +136,7 @@
       letter-spacing: -1px;
       color: var(--ink);
       margin-bottom: 24px;
-      opacity: 0; animation: fadeUp 0.8s 0.25s forwards;
+      animation: fadeUp 0.8s 0.25s both;
     }
     h1 em {
       font-style: normal; color: var(--teal);
@@ -144,11 +144,11 @@
     .hero-sub {
       font-size: 17px; color: var(--ink-mid); line-height: 1.75;
       max-width: 480px; margin-bottom: 40px;
-      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+      animation: fadeUp 0.8s 0.4s both;
     }
     .hero-actions {
       display: flex; gap: 16px; flex-wrap: wrap;
-      opacity: 0; animation: fadeUp 0.8s 0.55s forwards;
+      animation: fadeUp 0.8s 0.55s both;
     }
     .btn-primary {
       background: var(--teal);
@@ -181,7 +181,7 @@
       border-radius: 6px;
       padding: 40px;
       box-shadow: 0 8px 40px rgba(11,107,107,0.08);
-      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+      animation: fadeUp 0.8s 0.5s both;
     }
     .hero-card-label {
       font-family: 'DM Mono', monospace;
@@ -642,10 +642,13 @@
     }
 
     .reveal {
-      opacity: 0; transform: translateY(24px);
+      opacity: 1; transform: translateY(0);
       transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.animate-out {
+      opacity: 0; transform: translateY(24px);
+    }
+    .reveal.animate-out.visible { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -1075,15 +1078,16 @@
   }
 
   // Scroll reveal
+  // Reveal animation - content visible by default, subtle entrance on scroll
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
+    entries.forEach((e) => {
       if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        e.target.classList.remove('animate-out');
         observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
   reveals.forEach(el => observer.observe(el));
 
   // Active nav highlight
