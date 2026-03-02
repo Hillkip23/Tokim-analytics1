@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tokim Analytics — Risk Intelligence for Africa's Capital Markets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #0B6B6B;
+      --teal-mid:   #0E8585;
+      --teal-light: #E8F4F4;
+      --teal-dim:   #D0EBEB;
+      --gold:       #B8892A;
+      --gold-light: #F7F0E3;
+      --ink:        #111820;
+      --ink-mid:    #3A4550;
+      --ink-light:  #6B7A87;
+      --rule:       #D8DFE5;
+      --bg:         #FAFCFC;
+      --white:      #FFFFFF;
+      --nav-h:      72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--teal-mid); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--nav-h);
+      background: rgba(250,252,252,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      display: flex; align-items: baseline; gap: 6px;
+      text-decoration: none;
+    }
+    .logo-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--teal); letter-spacing: -0.5px;
+    }
+    .logo-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: var(--ink-light);
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 2px 6px; border: 1px solid var(--rule);
+      border-radius: 2px;
+    }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      color: var(--ink-mid);
+      letter-spacing: 0.2px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta {
+      background: var(--teal) !important;
+      color: var(--white) !important;
+      padding: 9px 22px !important;
+      border-radius: 3px;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--teal-mid) !important; }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(160deg, var(--teal-light) 0%, var(--bg) 55%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.35;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto; width: 100%;
+      padding: 80px 48px;
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--teal);
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.8s 0.1s forwards;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block; width: 32px; height: 1px;
+      background: var(--teal);
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 4.5vw, 58px);
+      font-weight: 700; line-height: 1.12;
+      letter-spacing: -1px;
+      color: var(--ink);
+      margin-bottom: 24px;
+      opacity: 0; animation: fadeUp 0.8s 0.25s forwards;
+    }
+    h1 em {
+      font-style: normal; color: var(--teal);
+    }
+    .hero-sub {
+      font-size: 17px; color: var(--ink-mid); line-height: 1.75;
+      max-width: 480px; margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s 0.55s forwards;
+    }
+    .btn-primary {
+      background: var(--teal);
+      color: var(--white);
+      padding: 14px 30px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--teal-mid); transform: translateY(-1px); }
+    .btn-ghost {
+      border: 1.5px solid var(--teal);
+      color: var(--teal);
+      padding: 13px 28px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 14px; font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { background: var(--teal-light); transform: translateY(-1px); }
+
+    /* Hero right — stats card */
+    .hero-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 40px;
+      box-shadow: 0 8px 40px rgba(11,107,107,0.08);
+      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-card-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-light); margin-bottom: 28px;
+    }
+    .stat-row {
+      display: flex; gap: 32px; margin-bottom: 32px;
+    }
+    .stat { flex: 1; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 700;
+      color: var(--teal); line-height: 1;
+    }
+    .stat-desc {
+      font-size: 12px; color: var(--ink-light);
+      margin-top: 4px; line-height: 1.4;
+    }
+    .market-list { border-top: 1px solid var(--rule); padding-top: 24px; }
+    .market-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 13px;
+    }
+    .market-item:last-child { border-bottom: none; }
+    .market-name { color: var(--ink-mid); font-weight: 500; }
+    .market-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1px;
+      padding: 3px 8px; border-radius: 2px;
+    }
+    .tag-us { background: var(--gold-light); color: var(--gold); }
+    .tag-ke { background: var(--teal-light); color: var(--teal); }
+    .tag-both { background: #EEF2F8; color: #4A6080; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: var(--teal);
+      height: 40px; overflow: hidden;
+      display: flex; align-items: center;
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker 28s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.75);
+      padding: 0 40px;
+      text-transform: uppercase;
+    }
+    .ticker-item span { color: rgba(255,255,255,0.4); margin: 0 12px; }
+
+    /* ── SECTION COMMON ── */
+    section { scroll-margin-top: var(--nav-h); }
+    .section-wrap { max-width: 1200px; margin: 0 auto; padding: 100px 48px; }
+    .section-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 24px; height: 1px; background: var(--teal);
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--ink-mid);
+      max-width: 560px; line-height: 1.75;
+    }
+    .section-header { margin-bottom: 56px; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--white); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+    }
+    .service-card {
+      background: var(--white);
+      padding: 40px 36px;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--teal-light); }
+    .service-icon {
+      font-size: 28px; margin-bottom: 20px;
+      display: block;
+    }
+    .service-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: var(--teal);
+      letter-spacing: 2px; margin-bottom: 14px;
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600;
+      color: var(--ink); margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .service-desc {
+      font-size: 14px; color: var(--ink-light);
+      line-height: 1.7;
+    }
+    .service-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .pill {
+      font-size: 11px; font-weight: 500;
+      padding: 4px 10px; border-radius: 20px;
+      background: var(--teal-dim); color: var(--teal);
+    }
+
+    /* ── MARKETS BANNER ── */
+    .markets-banner {
+      background: var(--ink);
+      padding: 60px 48px;
+    }
+    .markets-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .markets-left h2 { color: var(--white); }
+    .markets-left p { color: rgba(255,255,255,0.6); margin-top: 16px; font-size: 15px; }
+    .markets-flags {
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .flag-row {
+      display: flex; align-items: center; gap: 20px;
+      padding: 20px 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    .flag-emoji { font-size: 28px; }
+    .flag-name { font-size: 16px; font-weight: 600; color: var(--white); }
+    .flag-desc { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .flag-entity {
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 1px;
+      color: var(--teal-mid); text-transform: uppercase;
+    }
+
+    /* ── RISK NOTES ── */
+    #insights { background: var(--bg); }
+    .notes-header-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 48px; flex-wrap: wrap; gap: 20px;
+    }
+    .notes-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 24px;
+    }
+    .note-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex; flex-direction: column;
+    }
+    .note-card:hover {
+      box-shadow: 0 12px 40px rgba(11,107,107,0.1);
+      transform: translateY(-3px);
+    }
+    .note-top {
+      background: var(--teal); padding: 28px;
+      min-height: 140px; position: relative;
+    }
+    .note-card:nth-child(2) .note-top { background: var(--ink); }
+    .note-card:nth-child(3) .note-top { background: var(--gold); }
+    .note-vol {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 2px;
+      color: rgba(255,255,255,0.6); text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .note-title-card {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 600;
+      color: var(--white); line-height: 1.3;
+    }
+    .note-card:first-child .note-title-card { font-size: 22px; }
+    .note-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .note-excerpt {
+      font-size: 13px; color: var(--ink-light); line-height: 1.7; flex: 1;
+    }
+    .note-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--rule);
+    }
+    .note-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; color: var(--ink-light); letter-spacing: 1px;
+    }
+    .note-read {
+      font-size: 12px; color: var(--teal); font-weight: 500;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .note-read::after { content: '→'; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+    }
+    .about-right { position: sticky; top: calc(var(--nav-h) + 40px); }
+    .profile-card {
+      background: var(--bg);
+      border: 1px solid var(--rule);
+      border-radius: 6px; overflow: hidden;
+    }
+    .profile-header {
+      background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+      height: 120px; position: relative;
+    }
+    .profile-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--white);
+      border: 3px solid var(--white);
+      position: absolute; bottom: -36px; left: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 26px; font-weight: 700; color: var(--teal);
+    }
+    .profile-body { padding: 52px 28px 28px; }
+    .profile-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700; color: var(--ink);
+    }
+    .profile-role { font-size: 13px; color: var(--teal); margin-top: 4px; font-weight: 500; }
+    .profile-bio { font-size: 14px; color: var(--ink-mid); line-height: 1.75; margin-top: 16px; }
+    .profile-badges {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+    }
+    .badge {
+      font-size: 11px; padding: 4px 10px;
+      border: 1px solid var(--rule); border-radius: 20px;
+      color: var(--ink-mid);
+    }
+    .about-body p {
+      font-size: 16px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 20px;
+    }
+    .values-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+    .value-row {
+      display: flex; gap: 20px;
+      padding: 20px 0; border-bottom: 1px solid var(--rule);
+    }
+    .value-row:first-child { border-top: 1px solid var(--rule); }
+    .value-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .value-name { font-weight: 600; font-size: 14px; color: var(--ink); }
+    .value-desc { font-size: 13px; color: var(--ink-light); margin-top: 3px; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--teal); }
+    .contact-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 100px 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .contact-left h2 { color: var(--white); }
+    .contact-left p {
+      color: rgba(255,255,255,0.7);
+      font-size: 16px; line-height: 1.75; margin-top: 16px; margin-bottom: 36px;
+    }
+    .contact-detail {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .contact-detail-icon {
+      width: 36px; height: 36px; border-radius: 3px;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .contact-detail-text { font-size: 14px; color: rgba(255,255,255,0.85); }
+    .contact-form {
+      background: var(--white);
+      border-radius: 6px; padding: 40px;
+    }
+    .form-row { margin-bottom: 20px; }
+    label {
+      display: block;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--ink-light); margin-bottom: 8px;
+    }
+    input, select, textarea {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--rule);
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; color: var(--ink);
+      background: var(--bg);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--teal); background: var(--white); }
+    textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%;
+      background: var(--teal);
+      color: var(--white);
+      border: none; border-radius: 3px;
+      padding: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.3px;
+    }
+    .form-submit:hover { background: var(--teal-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 48px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700; color: var(--white);
+    }
+    .footer-logo span { color: var(--teal-mid); }
+    .footer-copy {
+      font-size: 12px; color: rgba(255,255,255,0.35);
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a {
+      font-size: 12px; color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--teal-mid); }
+
+
+    /* ── PRODUCT ── */
+    #product { background: var(--white); }
+    .product-inner {
+      max-width: 1200px; margin: 0 auto; padding: 100px 48px;
+    }
+    .product-layout {
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: center;
+      margin-top: 56px;
+    }
+    .product-left h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700; color: var(--ink); margin-bottom: 16px;
+    }
+    .product-left p {
+      font-size: 15px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 24px;
+    }
+    .product-features { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
+    .product-feature {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--rule);
+    }
+    .product-feature:first-child { border-top: 1px solid var(--rule); }
+    .feat-check {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--teal-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0; margin-top: 2px; color: var(--teal);
+    }
+    .feat-text { font-size: 14px; color: var(--ink-mid); line-height: 1.5; }
+    .feat-text strong { color: var(--ink); font-weight: 600; }
+    .product-frame-wrap {
+      position: relative;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(11,107,107,0.14), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid var(--rule);
+    }
+    .product-frame-bar {
+      background: var(--ink);
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .frame-dots { display: flex; gap: 6px; }
+    .frame-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .frame-dot.r { background: #FF5F57; }
+    .frame-dot.y { background: #FFBD2E; }
+    .frame-dot.g { background: #28CA41; }
+    .frame-url {
+      flex: 1; background: rgba(255,255,255,0.08);
+      border-radius: 3px; padding: 4px 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.5px;
+      overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+    .product-frame-wrap iframe {
+      width: 100%; height: 520px;
+      border: none; display: block;
+      background: var(--bg);
+    }
+    .product-frame-overlay {
+      position: absolute; inset: 41px 0 0 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--teal-light) 0%, #E8F0F8 100%);
+      flex-direction: column; gap: 16px;
+      cursor: pointer;
+    }
+    .overlay-icon { font-size: 48px; }
+    .overlay-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700; color: var(--teal);
+    }
+    .overlay-sub { font-size: 13px; color: var(--ink-light); }
+    .overlay-btn {
+      background: var(--teal); color: var(--white);
+      padding: 12px 28px; border-radius: 3px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; margin-top: 8px;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .overlay-btn:hover { background: var(--teal-mid); }
+    @media (max-width: 900px) {
+      .product-layout { grid-template-columns: 1fr; }
+      .product-inner { padding: 72px 24px; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-inner { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; padding: 60px 24px; }
+      .hero-card { display: none; }
+      .section-wrap { padding: 72px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .notes-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-right { position: static; }
+      .markets-inner { grid-template-columns: 1fr; gap: 40px; }
+      .contact-inner { grid-template-columns: 1fr; }
+      .markets-banner { padding: 60px 24px; }
+      footer { padding: 40px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <span class="logo-word">Tokim Analytics</span>
+      <span class="logo-tag">Int'l</span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#product">Platform</a>
+      <a href="#insights">Risk Notes</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Get in Touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">International Risk Advisory</div>
+      <h1>Risk intelligence built for <em>Africa's capital markets</em></h1>
+      <p class="hero-sub">
+        Tokim Analytics delivers institutional-grade liquidity, duration, and stress-testing analytics to fund managers, SACCOs, and financial institutions across Kenya and the US diaspora market.
+      </p>
+      <div class="hero-actions">
+        <a href="#insights" class="btn-primary">Read Our Risk Notes</a>
+        <a href="#product" class="btn-ghost">Live Demo ↗</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">Markets We Serve</div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-desc">Regulatory jurisdictions<br>(CBK/CMA + SEC)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">KES+USD</div>
+          <div class="stat-desc">Multi-currency<br>analytics capability</div>
+        </div>
+      </div>
+      <div class="market-list">
+        <div class="market-item">
+          <span class="market-name">Kenyan Money Market Funds</span>
+          <span class="market-tag tag-ke">Nairobi</span>
+        </div>
+        <div class="market-item">
+          <span class="market-name">SACCOs & Fixed-Income Funds</span>
+          <span class="market-tag tag-ke">Nairobi</span>
+        </div>
+        <div class="market-item">
+          <span class="market-name">Diaspora Investment Platforms</span>
+          <span class="market-tag tag-us">US</span>
+        </div>
+        <div class="market-item">
+          <span class="market-name">Development Finance Institutions</span>
+          <span class="market-tag tag-both">Global</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">CBK Liquidity Analytics <span>◆</span></span>
+    <span class="ticker-item">MMF Stress Testing <span>◆</span></span>
+    <span class="ticker-item">Duration Risk Advisory <span>◆</span></span>
+    <span class="ticker-item">Kenya Fixed Income <span>◆</span></span>
+    <span class="ticker-item">Diaspora Fund Intelligence <span>◆</span></span>
+    <span class="ticker-item">CMA Regulatory Compliance <span>◆</span></span>
+    <span class="ticker-item">Rate Shock Scenario Analysis <span>◆</span></span>
+    <span class="ticker-item">SACCO Portfolio Risk <span>◆</span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">CBK Liquidity Analytics <span>◆</span></span>
+    <span class="ticker-item">MMF Stress Testing <span>◆</span></span>
+    <span class="ticker-item">Duration Risk Analytics <span>◆</span></span>
+    <span class="ticker-item">Kenya Fixed Income <span>◆</span></span>
+    <span class="ticker-item">Diaspora Fund Intelligence <span>◆</span></span>
+    <span class="ticker-item">CMA Regulatory Compliance <span>◆</span></span>
+    <span class="ticker-item">Rate Shock Scenario Analysis <span>◆</span></span>
+    <span class="ticker-item">SACCO Portfolio Risk <span>◆</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow reveal">What We Do</div>
+      <h2 class="reveal">Advisory services built around<br>Kenya's market realities</h2>
+      <p class="section-sub reveal">We combine quantitative rigor with deep on-the-ground knowledge of CBK and CMA regulatory frameworks — delivering insights that are both analytically sound and operationally actionable.</p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="service-icon">📊</span>
+        <div class="service-num">01</div>
+        <h3>Liquidity & Duration Analytics</h3>
+        <p class="service-desc">Comprehensive portfolio-level liquidity profiling and duration analysis for MMFs and fixed-income funds. We model redemption risk, liquidity ladders, and duration mismatches under CBK/CMA guidelines.</p>
+        <div class="service-footer">
+          <span class="pill">Quarterly Reports</span>
+          <span class="pill">Dashboard</span>
+          <span class="pill">MMFs</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⚡</span>
+        <div class="service-num">02</div>
+        <h3>Stress Testing & Scenario Analysis</h3>
+        <p class="service-desc">Institutional-grade stress tests modelling CBK rate shocks, mass redemption events, and liquidity crises. Powered by our proprietary Kenya MMF stress-testing engine.</p>
+        <div class="service-footer">
+          <span class="pill">Rate Shock</span>
+          <span class="pill">Redemption</span>
+          <span class="pill">Bespoke</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌍</span>
+        <div class="service-num">03</div>
+        <h3>Diaspora & Cross-Border Risk Advisory</h3>
+        <p class="service-desc">Risk frameworks for US-based platforms and diaspora investment vehicles allocating into Kenyan and East African markets — bridging US institutional standards with local market intelligence.</p>
+        <div class="service-footer">
+          <span class="pill">US Platforms</span>
+          <span class="pill">FX Risk</span>
+          <span class="pill">East Africa</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETS BANNER -->
+<div class="markets-banner">
+  <div class="markets-inner">
+    <div class="markets-left">
+      <h2>One firm.<br>Two markets.<br>Genuine fluency in both.</h2>
+      <p>Most Africa-focused advisors lack real quant depth. Most US quantitative firms lack on-the-ground Kenya market knowledge. Tokim Analytics was built precisely for the gap between them.</p>
+    </div>
+    <div class="markets-flags reveal">
+      <div class="flag-row">
+        <span class="flag-emoji">🇰🇪</span>
+        <div>
+          <div class="flag-name">Kenya</div>
+          <div class="flag-desc">CBK & CMA regulatory expertise, MMF market coverage, Nairobi operations</div>
+        </div>
+        <div class="flag-entity">Tokim Limited</div>
+      </div>
+      <div class="flag-row">
+        <span class="flag-emoji">🇺🇸</span>
+        <div>
+          <div class="flag-name">United States</div>
+          <div class="flag-desc">Diaspora fund advisory, institutional-grade analytics, US client engagements</div>
+        </div>
+        <div class="flag-entity">Tokim Analytics LLC</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PRODUCT -->
+<section id="product">
+  <div class="product-inner">
+    <div class="section-eyebrow reveal">Our Platform</div>
+    <h2 class="reveal">Tokim MMF Stress Test Engine</h2>
+    <p class="section-sub reveal">A live, interactive analytics platform purpose-built for Kenya's money market funds — stress-test a fund's portfolio in real time, model redemption shocks, and generate instant risk reports.</p>
+    <div class="product-layout">
+      <div class="product-left reveal">
+        <h3>Institutional analytics.<br>Built for East Africa.</h3>
+        <p>Our proprietary stress-testing engine models the scenarios that matter most for Kenyan MMFs — rate shocks, mass redemptions, and liquidity crunches — under CBK and CMA regulatory parameters.</p>
+        <div class="product-features">
+          <div class="product-feature">
+            <div class="feat-check">✓</div>
+            <div class="feat-text"><strong>Redemption shock modelling</strong> — simulate 5%, 15%, and 30% single-day redemption events against real liquidity buffers</div>
+          </div>
+          <div class="product-feature">
+            <div class="feat-check">✓</div>
+            <div class="feat-text"><strong>CBK rate shock scenarios</strong> — parallel and non-parallel yield curve shifts with mark-to-market impact</div>
+          </div>
+          <div class="product-feature">
+            <div class="feat-check">✓</div>
+            <div class="feat-text"><strong>Duration & liquidity ladder analysis</strong> — bucket-level breakdown with CBK minimum ratio overlays</div>
+          </div>
+          <div class="product-feature">
+            <div class="feat-check">✓</div>
+            <div class="feat-text"><strong>Exportable risk reports</strong> — Tokim-branded PDF output ready for board or regulator submission</div>
+          </div>
+        </div>
+        <a href="https://kip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app" target="_blank" class="btn-primary">Launch Stress Test Engine ↗</a>
+      </div>
+      <div class="product-frame-wrap reveal">
+        <div class="product-frame-bar">
+          <div class="frame-dots">
+            <div class="frame-dot r"></div>
+            <div class="frame-dot y"></div>
+            <div class="frame-dot g"></div>
+          </div>
+          <div class="frame-url">kip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app</div>
+        </div>
+        <div class="product-frame-overlay" onclick="loadApp(this)">
+          <div class="overlay-icon">⚡</div>
+          <div class="overlay-title">Tokim MMF Stress Test Engine</div>
+          <div class="overlay-sub">Live interactive platform · Powered by Tokim Analytics</div>
+          <a class="overlay-btn" href="https://kip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app" target="_blank">Open Platform ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK NOTES / INSIGHTS -->
+<section id="insights">
+  <div class="section-wrap">
+    <div class="notes-header-row">
+      <div>
+        <div class="section-eyebrow reveal">Thought Leadership</div>
+        <h2 class="reveal">Tokim Risk Notes</h2>
+        <p class="section-sub reveal">Short-form research on liquidity risk, fixed-income dynamics, and portfolio stress testing in Kenya's capital markets.</p>
+      </div>
+      <a href="#contact" class="btn-ghost reveal" style="white-space:nowrap;">Subscribe for updates →</a>
+    </div>
+    <div class="notes-grid reveal">
+      <!-- Featured note -->
+      <a class="note-card" href="#contact">
+        <div class="note-top">
+          <div class="note-vol">Risk Note No. 01 · Featured</div>
+          <div class="note-title-card">Kenyan MMF Liquidity Risk: Redemption Dynamics and the Limits of Daily Liquidity Buffers</div>
+        </div>
+        <div class="note-body">
+          <p class="note-excerpt">An analysis of liquidity buffer adequacy across Kenya's top money market funds under rising redemption pressure — examining CBK minimum liquidity ratios, cash drag costs, and the structural tension between yield competition and redemption resilience. Includes a bottom-up stress test scenario under a 15% single-day redemption shock.</p>
+          <div class="note-meta">
+            <span class="note-date">Coming Q3 2025</span>
+            <span class="note-read">Read note</span>
+          </div>
+        </div>
+      </a>
+      <!-- Note 2 -->
+      <a class="note-card" href="#contact">
+        <div class="note-top">
+          <div class="note-vol">Risk Note No. 02</div>
+          <div class="note-title-card">Rate Shock Scenarios Under CBK Tightening: Duration Risk in Kenyan Fixed-Income Funds</div>
+        </div>
+        <div class="note-body">
+          <p class="note-excerpt">Modelling mark-to-market losses under parallel and non-parallel yield curve shifts in a CBK tightening cycle. Duration bucketing, convexity, and portfolio positioning implications for fund managers.</p>
+          <div class="note-meta">
+            <span class="note-date">Coming Q4 2025</span>
+            <span class="note-read">Read note</span>
+          </div>
+        </div>
+      </a>
+      <!-- Note 3 -->
+      <a class="note-card" href="#contact">
+        <div class="note-top">
+          <div class="note-vol">Risk Note No. 03</div>
+          <div class="note-title-card">Diaspora Fund Products: Risk Anatomy of US–Kenya Cross-Border Investment Vehicles</div>
+        </div>
+        <div class="note-body">
+          <p class="note-excerpt">Examining FX risk, duration mismatch, and regulatory complexity in diaspora-facing investment products — with a framework for US platforms allocating into Kenyan MMFs and bond funds.</p>
+          <div class="note-meta">
+            <span class="note-date">Coming Q1 2026</span>
+            <span class="note-read">Read note</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="about-grid">
+      <div class="about-body">
+        <div class="section-eyebrow reveal">About Tokim</div>
+        <h2 class="reveal">Built at the intersection of rigorous analytics and Kenya market depth</h2>
+        <p class="reveal">Tokim Analytics is an international risk advisory firm operating across the US and Kenya — delivering the kind of quantitative rigor typically reserved for large institutional investors, to the funds and asset managers that need it most in East Africa.</p>
+        <p class="reveal">Our work is grounded in CBK and CMA regulatory frameworks, informed by real portfolio data, and communicated in plain language that enables better investment decisions — not just compliance checkboxes.</p>
+        <p class="reveal">We are independently owned, with no conflicts of interest from fund distribution or brokerage relationships. Our only product is honest, rigorous analysis.</p>
+        <div class="values-list">
+          <div class="value-row reveal">
+            <span class="value-icon">🎯</span>
+            <div>
+              <div class="value-name">Analytical Independence</div>
+              <div class="value-desc">No fund distribution ties. No soft-dollar conflicts. Just the numbers.</div>
+            </div>
+          </div>
+          <div class="value-row reveal">
+            <span class="value-icon">🌍</span>
+            <div>
+              <div class="value-name">Genuine Local Fluency</div>
+              <div class="value-desc">CBK and CMA regulatory depth built from real engagement with Kenya's market structure.</div>
+            </div>
+          </div>
+          <div class="value-row reveal">
+            <span class="value-icon">⚙️</span>
+            <div>
+              <div class="value-name">Institutional-Grade Tools</div>
+              <div class="value-desc">Stress-testing and analytics frameworks built on quantitative finance best practice.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-right reveal">
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-avatar">T</div>
+          </div>
+          <div class="profile-body">
+            <div class="profile-name">Founder, Tokim Analytics</div>
+            <div class="profile-role">Risk Analytics · Kenya & US Markets</div>
+            <p class="profile-bio">
+              Quantitative risk analyst with deep expertise in Kenya's fixed-income and money market landscape. Combining graduate-level financial modeling training with hands-on CBK/CMA regulatory knowledge and experience in East Africa's capital markets ecosystem.
+            </p>
+            <div class="profile-badges">
+              <span class="badge">Risk Analytics</span>
+              <span class="badge">CBK / CMA</span>
+              <span class="badge">Fixed Income</span>
+              <span class="badge">Stress Testing</span>
+              <span class="badge">East Africa</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2>Let's talk about your portfolio's risk profile</h2>
+      <p>Whether you're a Kenyan fund manager looking for independent analytics, a US-based platform seeking East Africa expertise, or an institution exploring a pilot engagement — we'd like to hear from you.</p>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-text">Nairobi, Kenya &amp; United States</div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        <div class="contact-detail-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98f0fdf4f4f7d8ecf7f3f1f5f9f6f9f4e1ecf1fbebb6fbf7f5">[email&#160;protected]</a></div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📋</div>
+        <div class="contact-detail-text">Subscribe to receive Tokim Risk Notes when published</div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. Jane Kamau" />
+      </div>
+      <div class="form-row">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@yourfirm.com" />
+      </div>
+      <div class="form-row">
+        <label>I am a...</label>
+        <select>
+          <option value="">Select your role</option>
+          <option>Kenyan MMF / Fund Manager</option>
+          <option>SACCO Treasurer</option>
+          <option>US Diaspora Platform</option>
+          <option>Development Finance Institution</option>
+          <option>Corporate Treasury</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Message</label>
+        <textarea placeholder="Tell us about your current analytics needs or the engagement you have in mind..."></textarea>
+      </div>
+      <button class="form-submit" onclick="alert('Thanks — we\'ll be in touch shortly.')">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Tokim <span>Analytics</span></div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#product">Platform</a>
+      <a href="#insights">Risk Notes</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 Tokim Limited (Kenya) · Tokim Analytics LLC (US) · All rights reserved</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function loadApp(overlay) {
+    const wrap = overlay.parentElement;
+    overlay.style.display = 'none';
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://kip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app';
+    iframe.style.cssText = 'width:100%;height:520px;border:none;display:block;';
+    wrap.appendChild(iframe);
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forE
