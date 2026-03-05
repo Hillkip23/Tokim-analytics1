@@ -160,6 +160,8 @@
       letter-spacing: 0.3px;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
+      border: none;
+      cursor: pointer;
     }
     .btn-primary:hover { background: var(--teal-mid); transform: translateY(-1px); }
     .btn-ghost {
@@ -171,6 +173,8 @@
       font-size: 14px; font-weight: 500;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
+      background: transparent;
+      cursor: pointer;
     }
     .btn-ghost:hover { background: var(--teal-light); transform: translateY(-1px); }
 
@@ -542,7 +546,6 @@
     }
     .footer-links a:hover { color: var(--teal-mid); }
 
-
     /* ── PRODUCT ── */
     #product { background: var(--white); }
     .product-inner {
@@ -599,37 +602,72 @@
       letter-spacing: 0.5px;
       overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
     }
-    .product-frame-wrap iframe {
-      width: 100%; height: 520px;
-      border: none; display: block;
-      background: var(--bg);
+
+    /* ── NATIVE CALCULATOR STYLES ── */
+    .calc-header { 
+      background: linear-gradient(135deg, var(--teal), var(--teal-mid)); 
+      padding: 32px; text-align: center; color: white; 
     }
-    .product-frame-overlay {
-      position: absolute; inset: 41px 0 0 0;
-      display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(135deg, var(--teal-light) 0%, #E8F0F8 100%);
-      flex-direction: column; gap: 16px;
-      cursor: pointer;
+    .calc-icon { font-size: 36px; margin-bottom: 8px; }
+    .calc-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
+    .calc-subtitle { font-size: 12px; opacity: 0.8; margin-top: 4px; font-family: 'DM Mono', monospace; }
+    
+    .calc-body { padding: 32px; }
+    .input-group { margin-bottom: 24px; }
+    .input-group label { 
+      display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; 
+      letter-spacing: 0.5px; color: var(--ink-light); margin-bottom: 8px; 
     }
-    .overlay-icon { font-size: 48px; }
-    .overlay-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px; font-weight: 700; color: var(--teal);
+    .input-group input[type="number"] { 
+      width: 100%; padding: 12px; border: 1.5px solid var(--rule); 
+      border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 16px; 
     }
-    .overlay-sub { font-size: 13px; color: var(--ink-light); }
-    .overlay-btn {
-      background: var(--teal); color: var(--white);
-      padding: 12px 28px; border-radius: 3px;
-      font-size: 14px; font-weight: 600;
-      text-decoration: none; margin-top: 8px;
-      display: inline-block;
-      transition: background 0.2s;
+    .slider { width: 100%; margin: 10px 0; accent-color: var(--teal); }
+    .slider-value { text-align: center; font-size: 24px; font-weight: 700; color: var(--teal); }
+    .input-hint { font-size: 11px; color: var(--ink-light); margin-top: 4px; }
+    
+    .scenario-buttons { display: flex; gap: 8px; }
+    .scenario-btn { 
+      flex: 1; padding: 10px; border: 1.5px solid var(--rule); background: white; 
+      border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500; 
+      transition: all 0.2s;
     }
-    .overlay-btn:hover { background: var(--teal-mid); }
-    @media (max-width: 900px) {
-      .product-layout { grid-template-columns: 1fr; }
-      .product-inner { padding: 72px 24px; }
+    .scenario-btn.active { 
+      background: var(--teal); color: white; border-color: var(--teal); 
     }
+    .scenario-btn:hover:not(.active) { background: var(--teal-light); }
+    
+    .results-panel { 
+      background: var(--teal-light); border: 1px solid var(--teal-dim); 
+      border-radius: 6px; padding: 20px; margin: 24px 0; 
+    }
+    .result-row { 
+      display: flex; justify-content: space-between; 
+      padding: 8px 0; border-bottom: 1px solid var(--teal-dim); 
+      font-size: 14px; 
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row.highlight { font-size: 16px; font-weight: 600; color: var(--teal); }
+    .result-status { 
+      margin-top: 12px; padding: 10px; border-radius: 4px; 
+      text-align: center; font-size: 13px; font-weight: 600; 
+    }
+    .result-status.pass { background: #d4edda; color: #155724; }
+    .result-status.fail { background: #f8d7da; color: #721c24; }
+    
+    .risk-meter { margin-top: 16px; }
+    .risk-bar { height: 6px; background: #e0e0e0; border-radius: 3px; overflow: hidden; }
+    .risk-fill { height: 100%; background: var(--teal); transition: width 0.3s ease; }
+    .risk-fill.warning { background: var(--gold); }
+    .risk-fill.danger { background: #dc3545; }
+    .risk-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--ink-light); margin-top: 4px; }
+    
+    .calc-cta { 
+      width: 100%; background: var(--teal); color: white; border: none; 
+      padding: 14px; border-radius: 4px; font-weight: 600; cursor: pointer; 
+      margin-top: 8px; transition: background 0.2s;
+    }
+    .calc-cta:hover { background: var(--teal-mid); }
 
     /* ── ANIMATIONS ── */
     @keyframes fadeUp {
@@ -666,6 +704,8 @@
       .markets-banner { padding: 60px 24px; }
       footer { padding: 40px 24px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
+      .product-layout { grid-template-columns: 1fr; }
+      .product-inner { padding: 72px 24px; }
     }
   </style>
 </head>
@@ -835,17 +875,18 @@
   </div>
 </div>
 
-
-<!-- PRODUCT -->
+<!-- PRODUCT SECTION WITH NATIVE CALCULATOR -->
 <section id="product">
   <div class="product-inner">
     <div class="section-eyebrow reveal">Our Platform</div>
     <h2 class="reveal">Tokim MMF Stress Test Engine</h2>
     <p class="section-sub reveal">A live, interactive analytics platform purpose-built for Kenya's money market funds — stress-test a fund's portfolio in real time, model redemption shocks, and generate instant risk reports.</p>
+    
     <div class="product-layout">
       <div class="product-left reveal">
         <h3>Institutional analytics.<br>Built for East Africa.</h3>
         <p>Our proprietary stress-testing engine models the scenarios that matter most for Kenyan MMFs — rate shocks, mass redemptions, and liquidity crunches — under CBK and CMA regulatory parameters.</p>
+        
         <div class="product-features">
           <div class="product-feature">
             <div class="feat-check">✓</div>
@@ -864,8 +905,13 @@
             <div class="feat-text"><strong>Exportable risk reports</strong> — Tokim-branded PDF output ready for board or regulator submission</div>
           </div>
         </div>
-        <a href="https://hillkip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app" target="_blank" class="btn-primary">Launch Stress Test Engine ↗</a>
+        
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://hillkip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app" target="_blank" class="btn-primary">Open Full Platform ↗</a>
+        </div>
       </div>
+
+      <!-- NATIVE CALCULATOR (NO IFRAME DEPENDENCY) -->
       <div class="product-frame-wrap reveal">
         <div class="product-frame-bar">
           <div class="frame-dots">
@@ -873,13 +919,69 @@
             <div class="frame-dot y"></div>
             <div class="frame-dot g"></div>
           </div>
-          <div class="frame-url">hillkip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app</div>
+          <div class="frame-url">tokim-analytics.com/stress-test</div>
         </div>
-        <div class="product-frame-overlay" onclick="loadApp(this)">
-          <div class="overlay-icon">⚡</div>
-          <div class="overlay-title">Tokim MMF Stress Test Engine</div>
-          <div class="overlay-sub">Live interactive platform · Powered by Tokim Analytics</div>
-          <a class="overlay-btn" href="https://hillkip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app" target="_blank">Open Platform ↗</a>
+
+        <div class="calc-header"> 
+          <div class="calc-icon">⚡</div>
+          <div class="calc-title">MMF Redemption Stress Test</div>
+          <div class="calc-subtitle">Quick Calculator • CBK Compliance Check</div>
+        </div>
+        
+        <div class="calc-body">
+          <div class="input-group">
+            <label>Fund AUM (KES Millions)</label>
+            <input type="number" id="aum-input" value="5000" min="100" step="100">
+          </div>
+          
+          <div class="input-group">
+            <label>Current Liquidity Ratio (%)</label>
+            <input type="range" id="liquidity-slider" min="10" max="100" value="25" class="slider">
+            <div class="slider-value"><span id="liquidity-display">25</span>%</div>
+            <div class="input-hint">CBK minimum: 15% for MMFs</div>
+          </div>
+
+          <div class="input-group">
+            <label>Stress Scenario</label>
+            <div class="scenario-buttons">
+              <button class="scenario-btn active" onclick="setScenario(5)">5% Redemption</button>
+              <button class="scenario-btn" onclick="setScenario(15)">15% Redemption</button>
+              <button class="scenario-btn" onclick="setScenario(30)">30% Redemption</button>
+            </div>
+            <input type="hidden" id="scenario-value" value="5">
+          </div>
+
+          <div class="results-panel" id="results">
+            <div class="result-row">
+              <span>Redemption Amount:</span>
+              <strong id="redemption-amount">KES 250M</strong>
+            </div>
+            <div class="result-row">
+              <span>Liquid Assets Available:</span>
+              <strong id="liquid-assets">KES 1,250M</strong>
+            </div>
+            <div class="result-row highlight">
+              <span>Liquidity Coverage:</span>
+              <strong id="coverage-ratio">500%</strong>
+            </div>
+            <div class="result-status pass" id="status-badge">
+              ✓ Passes CBK Stress Test
+            </div>
+            
+            <div class="risk-meter">
+              <div class="risk-bar">
+                <div class="risk-fill" id="risk-bar-fill" style="width:20%"></div>
+              </div>
+              <div class="risk-labels">
+                <span>Low Risk</span>
+                <span>High Risk</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="calc-cta" onclick="window.open('https://hillkip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app','_blank')">
+            Open Full Analysis in Platform ↗
+          </button>
         </div>
       </div>
     </div>
@@ -1015,7 +1117,7 @@
       </div>
       <div class="contact-detail">
         <div class="contact-detail-icon">✉️</div>
-        <div class="contact-detail-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98f0fdf4f4f7d8ecf7f3f1f5f9f6f9f4e1ecf1fbebb6fbf7f5">[email&#160;protected]</a></div>
+        <div class="contact-detail-text">contact@tokimanalytics.com</div>
       </div>
       <div class="contact-detail">
         <div class="contact-detail-icon">📋</div>
@@ -1067,18 +1169,59 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  function loadApp(overlay) {
-    const wrap = overlay.parentElement;
-    overlay.style.display = 'none';
-    const iframe = document.createElement('iframe');
-    iframe.src = 'https://hillkip23-defi-amm-stablecoin-stress-t-appstablecoin-app-yfedl4.streamlit.app';
-    iframe.style.cssText = 'width:100%;height:520px;border:none;display:block;';
-    wrap.appendChild(iframe);
+<script>
+  // Calculator Logic
+  function calculate() {
+    const aum = parseFloat(document.getElementById('aum-input').value) || 0;
+    const liquidity = parseFloat(document.getElementById('liquidity-slider').value) || 0;
+    const scenario = parseFloat(document.getElementById('scenario-value').value) || 5;
+    
+    const redemption = aum * (scenario / 100);
+    const liquidAssets = aum * (liquidity / 100);
+    const coverage = liquidAssets / redemption;
+    const coveragePercent = (coverage * 100).toFixed(0);
+    
+    document.getElementById('redemption-amount').textContent = `KES ${redemption.toFixed(0)}M`;
+    document.getElementById('liquid-assets').textContent = `KES ${liquidAssets.toFixed(0)}M`;
+    document.getElementById('coverage-ratio').textContent = `${coveragePercent}%`;
+    
+    const statusBadge = document.getElementById('status-badge');
+    const riskFill = document.getElementById('risk-bar-fill');
+    
+    if (coverage >= 1) {
+      statusBadge.textContent = '✓ Passes CBK Stress Test';
+      statusBadge.className = 'result-status pass';
+      riskFill.style.width = Math.min((1/coverage) * 100, 100) + '%';
+      riskFill.className = 'risk-fill';
+    } else {
+      statusBadge.textContent = '✗ Fails CBK Minimum Liquidity';
+      statusBadge.className = 'result-status fail';
+      riskFill.style.width = '100%';
+      riskFill.className = 'risk-fill danger';
+    }
+    
+    if (coverage < 1.5 && coverage >= 1) {
+      riskFill.className = 'risk-fill warning';
+    }
   }
 
+  function setScenario(percent) {
+    document.getElementById('scenario-value').value = percent;
+    document.querySelectorAll('.scenario-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.textContent.includes(percent)) btn.classList.add('active');
+    });
+    calculate();
+  }
+
+  // Event Listeners
+  document.getElementById('aum-input')?.addEventListener('input', calculate);
+  document.getElementById('liquidity-slider')?.addEventListener('input', function() {
+    document.getElementById('liquidity-display').textContent = this.value;
+    calculate();
+  });
+
   // Scroll reveal
-  // Reveal animation - content visible by default, subtle entrance on scroll
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
@@ -1095,4 +1238,25 @@
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forE
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (scrollY >= (sectionTop - 200)) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.style.color = '';
+      if (link.getAttribute('href').slice(1) === current) {
+        link.style.color = 'var(--teal)';
+      }
+    });
+  });
+
+  // Initialize calculation on load
+  calculate();
+</script>
+
+</body>
+</html>
